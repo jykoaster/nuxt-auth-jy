@@ -1,0 +1,8 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "main": "module.ts",
+  "types": "index.d.ts",
+  "author": "Jy",
+  "license": "MIT"
+}
