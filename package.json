@@ -1,8 +1,19 @@
 {
-  "name": "auth",
-  "version": "1.0.0",
-  "main": "module.ts",
+  "name": "nuxt-auth-jy",
+  "version": "1.0.3",
+  "main": "src/module.ts",
   "types": "index.d.ts",
-  "author": "Jy",
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jykoaster/authCustom.git"
+  },
+  "author": "jy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jykoaster/authCustom/issues"
+  },
+  "homepage": "https://github.com/jykoaster/authCustom#readme",
+  "dependencies": {
+    "cookie": "^0.5.0"
+  }
 }
