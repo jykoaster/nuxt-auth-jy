@@ -19,7 +19,6 @@ const myModule: Module<Options> = function (moduleOptions) {
   if (!options.guestPath) options.guestPath = '/'
   if (!options.prefix) options.prefix = 'authCustom_'
   if (!options.i18n) options.i18n = false
-  console.log(options.prefix)
 
   const pluginsToSync = [
     'plugins/index.ts',
