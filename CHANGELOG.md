@@ -5,6 +5,8 @@
 - add function logout()
 - add return value and error log in api refrence
 - add storage class
+- add userdata feature
+- add cookie expired option
 
 ### 1.0.0
 

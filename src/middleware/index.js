@@ -9,20 +9,20 @@ Middleware.authCustom = (context) => {
   const isUseAuth = routeOption(route, true)
   const isLogin = $authCustom.isLogged()
   if (isUseAuth) {
-    if (!isLogin || isLogin === 'undefined') {
+    if (!isLogin) {
       if (i18n) {
         redirect(localeLocation(loginPath))
       } else {
-        redirect(localeLocation(loginPath))
+        redirect(loginPath)
       }
     }
   }
   if (isUseGuest) {
-    if (isLogin && isLogin !== 'undefined') {
+    if (isLogin) {
       if (i18n) {
         redirect(localeLocation(guestPath))
       } else {
-        redirect(localeLocation(guestPath))
+        redirect(guestPath)
       }
     }
   }

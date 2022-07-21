@@ -5,6 +5,7 @@ interface Options {
   guestPath?: String
   prefix?: String
   i18n?: Boolean
+  expires: Number
 }
 
 const myModule: Module<Options> = function (moduleOptions) {
@@ -19,6 +20,7 @@ const myModule: Module<Options> = function (moduleOptions) {
   if (!options.guestPath) options.guestPath = '/'
   if (!options.prefix) options.prefix = 'authCustom_'
   if (!options.i18n) options.i18n = false
+  if (!options.expires) options.expires = 30
 
   const pluginsToSync = [
     'plugins/index.ts',

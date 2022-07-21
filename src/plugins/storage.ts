@@ -4,10 +4,15 @@ const options = JSON.parse(`<%= JSON.stringify(options) %>`)
 export class Storage {
   public ctx: Context
   public prefix: String
+  public options: any
 
   constructor(ctx: Context) {
     this.ctx = ctx
     this.prefix = options.prefix
+    this.options = {
+      expires: options.expires,
+      path: '/',
+    }
   }
 
   setUniversal<V extends unknown>(key: string, value: V): V | void {
@@ -42,13 +47,24 @@ export class Storage {
   }
 
   setCookie<V extends unknown>(key: string, value: V): V {
+    const _options = Object.assign({}, this.options)
+
+    // Unset null, undefined
+    if (typeof value === 'undefined' || value === null) {
+      _options.maxAge = -1
+    }
+
+    // Accept expires as a number for js-cookie compatiblity
+    if (typeof _options.expires === 'number') {
+      _options.expires = new Date(Date.now() + _options.expires * 864e5)
+    }
     const _key = this.prefix + key
     let _value
     if (typeof value === 'string') {
       _value = value
     }
     _value = JSON.stringify(value)
-    const serializedCookie = cookie.serialize(_key, _value)
+    const serializedCookie = cookie.serialize(_key, _value, _options)
     if (process.client) {
       // Set in browser
       document.cookie = serializedCookie

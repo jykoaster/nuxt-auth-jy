@@ -14,8 +14,13 @@ const myPlugin: Plugin = (ctx, inject) => {
     async login(): Promise<Boolean | void> {
       try {
         const token = await axios.get('http://icanhazip.com/')
+        const userData = {
+          id: '0',
+          name: 'User',
+        }
         storage.setUniversal('isLogged', true)
-        storage.setUniversal('token', token)
+        storage.setUniversal('token', token.data)
+        storage.setUniversal('user', userData)
         return true
       } catch (_) {
         console.error('Log in ERROR!')
@@ -25,6 +30,7 @@ const myPlugin: Plugin = (ctx, inject) => {
       try {
         storage.removeUniversal('isLogged')
         storage.removeUniversal('token')
+        storage.removeUniversal('user')
         return true
       } catch (_) {
         console.error('Log out ERROR!')
@@ -32,9 +38,17 @@ const myPlugin: Plugin = (ctx, inject) => {
     },
     isLogged(): unknown {
       try {
-        return storage.getUniversal('isLogged')
+        const res = storage.getUniversal('isLogged')
+        return res
       } catch (_) {
         console.error('Get log status FAILED!')
+      }
+    },
+    getUserData(): unknown {
+      try {
+        return storage.getUniversal('user')
+      } catch (_) {
+        console.error('Get user data FAILED!')
       }
     },
   }

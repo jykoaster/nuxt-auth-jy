@@ -50,7 +50,7 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 ## `login(data:Object)`
 
 - Return:`Void`
-- Description Call function to login with data
+- Description:Call function to login with data
 
 ## `isLogged()`
 
@@ -60,7 +60,7 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 ## `logout()`
 
 - Return:`Void`
-- Description:It will return login status
+- Description:Logout function
 
 # Options
 
@@ -87,3 +87,9 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 - Type:`String`
 - Default:`authCustom_`
 - Description: Prefix for cookies
+
+## `expires`(day)
+
+- Type:`Number`
+- Default:`30`
+- Description: Cookie expired time
