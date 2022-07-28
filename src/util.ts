@@ -22,3 +22,5 @@ export const routeOption = (route: Route, value: string | Boolean) => {
     }
   })
 }
+export const isUnset = (o: unknown): boolean =>
+  typeof o === 'undefined' || o === null

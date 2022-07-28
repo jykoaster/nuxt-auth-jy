@@ -5,7 +5,7 @@ interface Options {
   guestPath?: String
   prefix?: String
   i18n?: Boolean
-  expires: Number
+  expires?: Number
 }
 
 const myModule: Module<Options> = function (moduleOptions) {
@@ -25,6 +25,7 @@ const myModule: Module<Options> = function (moduleOptions) {
   const pluginsToSync = [
     'plugins/index.ts',
     'plugins/storage.ts',
+    'middleware/index.js',
     'middleware/index.js',
     'util.ts',
   ]

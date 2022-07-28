@@ -7,6 +7,7 @@
 - add storage class
 - add userdata feature
 - add cookie expired option
+- add store state
 
 ### 1.0.0
 

@@ -18,9 +18,10 @@ const myPlugin: Plugin = (ctx, inject) => {
           id: '0',
           name: 'User',
         }
-        storage.setUniversal('isLogged', true)
         storage.setUniversal('token', token.data)
         storage.setUniversal('user', userData)
+        storage.setUniversal('isLogged', true)
+
         return true
       } catch (_) {
         console.error('Log in ERROR!')
@@ -37,19 +38,14 @@ const myPlugin: Plugin = (ctx, inject) => {
       }
     },
     isLogged(): unknown {
-      try {
-        const res = storage.getUniversal('isLogged')
-        return res
-      } catch (_) {
-        console.error('Get log status FAILED!')
-      }
+      return storage.state.isLogged
     },
     getUserData(): unknown {
-      try {
-        return storage.getUniversal('user')
-      } catch (_) {
-        console.error('Get user data FAILED!')
-      }
+      // try {
+      return storage.state.user
+      // } catch (_) {
+      // console.error('Get user data FAILED!')
+      // }
     },
   }
   inject('authCustom', allFn)
