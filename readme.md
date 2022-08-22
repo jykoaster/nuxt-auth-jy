@@ -47,10 +47,15 @@ When mode is `true`, it only allow logged user to visit.When mode is `guest`, it
 
 When you use with this package, it will auto inject `$authCustom` in your context
 
+## `register(data:Object)`
+
+- Return:`Void`
+- Description:Call `registerUrl` with `data` parameter as payload
+
 ## `login(data:Object)`
 
 - Return:`Void`
-- Description:Call function to login with data
+- Description:Call `registerUrl` to login with `data` parameter as payload,then auto fetch userdata with `userUrl`
 
 ## `isLogged()`
 
@@ -88,8 +93,26 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 - Default:`authCustom_`
 - Description: Prefix for cookies
 
-## `expires`(day)
+## `expires`(second)
 
 - Type:`Number`
-- Default:`30`
+- Default:`3600`
 - Description: Cookie expired time
+
+## `registerUrl`
+
+- Type:`String`
+- Default:`null`
+- Description:Register url
+
+## `loginUrl`
+
+- Type:`String`
+- Default:`null`
+- Description:Login url
+
+## `userUrl`
+
+- Type:`String`
+- Default:`null`
+- Description:Fetch userdata url

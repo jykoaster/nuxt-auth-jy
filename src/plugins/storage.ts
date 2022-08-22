@@ -72,7 +72,10 @@ export class Storage {
         state: () => ({
           isLogged: this.getCookie('isLogged'),
           token: this.getCookie('token'),
+          refreshToken: this.getCookie('refreshToken'),
+          tokenType: this.getCookie('tokenType'),
           user: this.getCookie('user'),
+          expiredAf: this.getCookie('expiredAt'),
         }),
         mutations: {
           SET(state: any, payload: any) {
@@ -163,7 +166,7 @@ export class Storage {
 
     // Accept expires as a number for js-cookie compatiblity
     if (typeof _options.expires === 'number') {
-      _options.expires = new Date(Date.now() + _options.expires * 864e5)
+      _options.expires = new Date(Date.now() + _options.expires * 1000)
     }
     const _key = this.prefix + key
     let _value
