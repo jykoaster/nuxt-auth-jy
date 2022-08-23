@@ -1,6 +1,9 @@
 import { Module } from '@nuxt/types'
 
 interface Options {
+  tokenProperty: String
+  refreshTokenProperty: String
+  tokenType: String
   loginPath?: String
   guestPath?: String
   prefix?: String
@@ -9,6 +12,7 @@ interface Options {
   loginUrl?: String
   registerUrl?: String
   userUrl?: String
+  editUrl?: String
 }
 
 const myModule: Module<Options> = function (moduleOptions) {

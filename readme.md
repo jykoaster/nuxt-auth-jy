@@ -49,12 +49,12 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 
 ## `register(data:Object)`
 
-- Return:`Void`
+- Return:`Promise`
 - Description:Call `registerUrl` with `data` parameter as payload
 
 ## `login(data:Object)`
 
-- Return:`Void`
+- Return:`Promise`
 - Description:Call `registerUrl` to login with `data` parameter as payload,then auto fetch userdata with `userUrl`
 
 ## `isLogged()`
@@ -67,7 +67,35 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 - Return:`Void`
 - Description:Logout function
 
+## `fetchUserData()`
+
+- Return:`Promise`
+- Description:Fetch userdata with `userUrl`
+
+## `editInfo(data:Object)`
+
+- Return:`Promise`
+- Description:Edit userdata with `editUrl`
+
 # Options
+
+## `tokenProperty`
+
+- Type:`String`
+- Required:`true`
+- Description: The token property name from api response
+
+## `tokenType`
+
+- Type:`String`
+- Required:`true`
+- Description: Type of token (ex:'bearer')
+
+## `refreshTokenProperty`
+
+- Type:`String`
+- Default:`null`
+- Description: The refresh token property name from api response
 
 ## `loginPath`
 
@@ -116,3 +144,9 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 - Type:`String`
 - Default:`null`
 - Description:Fetch userdata url
+
+## `editUrl`
+
+- Type:`String`
+- Default:`null`
+- Description:Edit userdata url
