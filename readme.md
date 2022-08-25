@@ -77,6 +77,16 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 - Return:`Promise`
 - Description:Edit userdata with `editUrl`
 
+## `getToken()`
+
+- Return:`{token:String,type:String}`
+- Description:Get current token and type
+
+## `refreshToken()`
+
+- Return:`Promise`
+- Description:If you set `refreshUrl` and `refreshTokenProperty`, you can refresh token by this function
+
 # Options
 
 ## `tokenProperty`
@@ -138,6 +148,12 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 - Type:`String`
 - Default:`null`
 - Description:Login url
+
+## `refreshUrl`
+
+- Type:`String`
+- Default:`null`
+- Description:Refresh token url
 
 ## `userUrl`
 

@@ -5,6 +5,7 @@
 - add function logout()
 - add function fetchUser()
 - add function editInfo()
+- add function refreshToken()
 - add return value and error log in api refrence
 - add storage class
 - add userdata feature
@@ -12,12 +13,14 @@
 - add store state
 - add option `registerUrl`
 - add option `loginUrl`
+- add option `refreshUrl`
 - add option `userUrl`
 - add option `editUrl`
 - add option `tokenProperty`
 - add option `refreshTokenProperty`
 - add option `tokenType`
 - add error handler
+- add token to request header
 
 ### 1.0.0
 

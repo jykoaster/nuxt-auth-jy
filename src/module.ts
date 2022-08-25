@@ -10,6 +10,7 @@ interface Options {
   i18n?: Boolean
   expires?: Number
   loginUrl?: String
+  refreshUrl?: String
   registerUrl?: String
   userUrl?: String
   editUrl?: String
