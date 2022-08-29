@@ -76,6 +76,7 @@ export class Storage {
           tokenType: this.getCookie('tokenType'),
           user: this.getCookie('user'),
           expiredAt: this.getCookie('expiredAt'),
+          remember: this.getCookie('remember'),
         }),
         mutations: {
           SET(state: any, payload: any) {

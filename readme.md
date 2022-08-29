@@ -52,10 +52,10 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 - Return:`Promise`
 - Description:Call `registerUrl` with `data` parameter as payload
 
-## `login(data:Object)`
+## `login(data:Object,remember:Boolean)`
 
 - Return:`Promise`
-- Description:Call `registerUrl` to login with `data` parameter as payload,then auto fetch userdata with `userUrl`
+- Description:Call `registerUrl` to login with `data` parameter as payload,then auto fetch userdata with `userUrl`.If `remember` is `true`,the value of key that you set in option `rememberProperty` will be saved from `data` parameter
 
 ## `isLogged()`
 
@@ -93,7 +93,7 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 
 - Type:`String`
 - Required:`true`
-- Description: The token property name from api response
+- Description: The token property name in `login()` response
 
 ## `tokenType`
 
@@ -105,7 +105,13 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 
 - Type:`String`
 - Default:`null`
-- Description: The refresh token property name from api response
+- Description: The refresh token property name in `login()` response
+
+## `rememberProperty`
+
+- Type:`String`
+- Default:`null`
+- Description: The account property which will be saved in `login()` function first parameter
 
 ## `loginPath`
 
@@ -160,6 +166,12 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 - Type:`String`
 - Default:`null`
 - Description:Fetch userdata url
+
+## `userDataProperty`
+
+- Type:`String`
+- Default:`data`
+- Description:The property which will been saved as userdata from `fetchUserData()` response
 
 ## `editUrl`
 

@@ -6,6 +6,7 @@
 - add function fetchUser()
 - add function editInfo()
 - add function refreshToken()
+- add function getRemember()
 - add return value and error log in api refrence
 - add storage class
 - add userdata feature
@@ -19,7 +20,10 @@
 - add option `tokenProperty`
 - add option `refreshTokenProperty`
 - add option `tokenType`
+- add option `userDataProperty`
+- add option `rememberProperty`
 - add error handler
+- add options check
 - add token to request header
 
 ### 1.0.0

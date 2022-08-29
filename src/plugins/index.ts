@@ -11,12 +11,17 @@ const {
   expires,
   tokenProperty,
   refreshTokenProperty,
+  rememberProperty,
+  userDataProperty,
   tokenType,
 } = options
 const myPlugin: Plugin = (ctx, inject) => {
   const storage = new Storage(ctx)
   const allFn = {
     register(data: any): Promise<Object | void> {
+      if (!registerUrl) {
+        throw new Error('[nuxt-auth-jy] Option "registerUrl" is not set!')
+      }
       return new Promise((resolve, reject) => {
         ctx.$axios
           .$post(registerUrl, data)
@@ -26,11 +31,14 @@ const myPlugin: Plugin = (ctx, inject) => {
           })
       })
     },
-    login({ username, password }: any): Promise<unknown> {
+    login(data: any, remember: Boolean = false): Promise<unknown> {
+      if (!loginUrl) {
+        throw new Error('[nuxt-auth-jy] Option "loginUrl" is not set!')
+      }
       return new Promise((resolve, reject) => {
         ctx.app.$axios
-          .$post(loginUrl, { username, password })
-          .then((response) => {
+          .$post(loginUrl, data)
+          .then(async (response) => {
             if (response[tokenProperty]) {
               const expired = new Date().getTime() + expires * 1000
               storage.setUniversal('token', response[tokenProperty])
@@ -40,12 +48,27 @@ const myPlugin: Plugin = (ctx, inject) => {
               )
               storage.setUniversal('expiredAt', expired)
               storage.setUniversal('tokenType', tokenType)
+
               ctx.app.$axios.setToken(
                 storage.state.token,
                 storage.state.tokenType
               )
-              this.refreshToken()
-              resolve(this.fetchUserData())
+              await this.fetchUserData()
+              storage.setUniversal('isLogged', true)
+              if (remember) {
+                if (!rememberProperty) {
+                  this.logout()
+                  reject(
+                    new Error(
+                      '[nuxt-auth-jy] Option "rememberProperty" is not set!'
+                    )
+                  )
+                }
+                storage.setUniversal('remember', data[rememberProperty])
+              } else {
+                storage.removeUniversal('remember')
+              }
+              resolve({ success: true })
             } else {
               resolve(response)
             }
@@ -55,7 +78,11 @@ const myPlugin: Plugin = (ctx, inject) => {
           })
       })
     },
+
     editInfo(data: object): Promise<Object | void> {
+      if (!editUrl) {
+        throw new Error('[nuxt-auth-jy] Option "editUrl" is not set!')
+      }
       return new Promise((resolve, reject) => {
         ctx.app.$axios
           .$put(editUrl, data)
@@ -67,17 +94,24 @@ const myPlugin: Plugin = (ctx, inject) => {
           })
       })
     },
-    fetchUserData(): Promise<unknown> {
+    fetchUserData(): Promise<any> {
+      if (!userUrl) {
+        throw new Error('[nuxt-auth-jy] Option "userUrl" is not set!')
+      }
       return new Promise((resolve, reject) => {
         ctx.app.$axios
           .$get(userUrl)
           .then((response) => {
-            if (response) {
-              storage.setUniversal('user', response)
-              storage.setUniversal('isLogged', true)
+            if (response[userDataProperty]) {
+              storage.setUniversal('user', response[userDataProperty])
               resolve({ success: true })
             } else {
-              resolve(response)
+              this.logout()
+              reject(
+                new Error(
+                  `[nuxt-auth-jy] Cannot find property "${userDataProperty}" in "fetchUserData()" response!`
+                )
+              )
             }
           })
           .catch((error) => {
@@ -105,10 +139,16 @@ const myPlugin: Plugin = (ctx, inject) => {
     getUserData(): unknown {
       return storage.state.user
     },
-    getToken() {
+    getRemember(): unknown {
+      return storage.state.remember
+    },
+    getToken(): Object {
       return { type: storage.state.tokenType, token: storage.state.token }
     },
     refreshToken() {
+      if (!refreshUrl) {
+        throw new Error('[nuxt-auth-jy] Option "refreshUrl" is not set!')
+      }
       return new Promise((resolve, reject) => {
         const refreshToken = storage.getUniversal('refreshToken')
         ctx.app.$axios
