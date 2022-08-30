@@ -8,6 +8,7 @@ const {
   refreshUrl,
   userUrl,
   editUrl,
+  resetPassUrl,
   expires,
   tokenProperty,
   refreshTokenProperty,
@@ -145,7 +146,7 @@ const myPlugin: Plugin = (ctx, inject) => {
     getToken(): Object {
       return { type: storage.state.tokenType, token: storage.state.token }
     },
-    refreshToken() {
+    refreshToken(request: any) {
       if (!refreshUrl) {
         throw new Error('[nuxt-auth-jy] Option "refreshUrl" is not set!')
       }
@@ -163,8 +164,26 @@ const myPlugin: Plugin = (ctx, inject) => {
               )
               storage.setUniversal('expiredAt', expired)
               storage.setUniversal('tokenType', tokenType)
-              resolve({ success: true })
+
+              resolve(ctx.app.$axios.request(request))
             } else {
+              resolve(response)
+            }
+          })
+          .catch((error) => {
+            reject(error)
+          })
+      })
+    },
+    resetPass(data: any) {
+      if (!resetPassUrl) {
+        throw new Error('[nuxt-auth-jy] Option "resetPassUrl" is not set!')
+      }
+      return new Promise((resolve, reject) => {
+        ctx.app.$axios
+          .$put(resetPassUrl, data)
+          .then((response) => {
+            if (response) {
               resolve(response)
             }
           })

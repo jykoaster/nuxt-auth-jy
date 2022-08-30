@@ -87,6 +87,11 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 - Return:`Promise`
 - Description:If you set `refreshUrl` and `refreshTokenProperty`, you can refresh token by this function
 
+## `resetPass()`
+
+- Return:`Promise`
+- Description:Reset password with `resetPassUrl`
+
 # Options
 
 ## `tokenProperty`
@@ -178,3 +183,9 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 - Type:`String`
 - Default:`null`
 - Description:Edit userdata url
+
+## `resetPassUrl`
+
+- Type:`String`
+- Default:`null`
+- Description:Reset password url

@@ -7,6 +7,7 @@
 - add function editInfo()
 - add function refreshToken()
 - add function getRemember()
+- add function resetPass()
 - add return value and error log in api refrence
 - add storage class
 - add userdata feature
@@ -17,6 +18,7 @@
 - add option `refreshUrl`
 - add option `userUrl`
 - add option `editUrl`
+- add option `resetPassUrl`
 - add option `tokenProperty`
 - add option `refreshTokenProperty`
 - add option `tokenType`

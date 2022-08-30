@@ -12,6 +12,7 @@ interface Options {
   expires?: Number
   loginUrl?: String
   refreshUrl?: String
+  resetPassUrl?: String
   registerUrl?: String
   userUrl?: String
   userDataProperty?: String
