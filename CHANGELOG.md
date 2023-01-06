@@ -1,6 +1,6 @@
 ### 1.1.0
 
-- third party login
+- oAuth login
 
 ### 1.0.3
 
