@@ -15,10 +15,49 @@ const {
   rememberProperty,
   userDataProperty,
   tokenType,
+  oAuth,
+  redirectUrl,
 } = options
 const myPlugin: Plugin = (ctx, inject) => {
   const storage = new Storage(ctx)
   const allFn = {
+    async processToken(token: any) {
+      const userToken = JSON.parse(
+        Buffer.from(
+          token.replace(/\/?/g, '').replace(/-/g, '+').replace('/_/g', '/'),
+          'base64'
+        ).toString()
+      )
+      try {
+        if (userToken[tokenProperty]) {
+          const expired = new Date().getTime() + expires * 1000
+          storage.setUniversal('token', userToken[tokenProperty])
+          storage.setUniversal('refreshToken', userToken[refreshTokenProperty])
+          storage.setUniversal('expiredAt', expired)
+          storage.setUniversal('tokenType', tokenType)
+
+          ctx.app.$axios.setToken(storage.state.token, storage.state.tokenType)
+          await this.fetchUserData()
+          storage.setUniversal('isLogged', true)
+        }
+      } catch (error) {
+        throw new Error(`[nuxt-auth-jy] ${error}`)
+      }
+    },
+    addReciveMessageListener() {
+      const reciveEvent = async (e: any) => {
+        const data = e.data
+        if (origin === window.location.origin && data.token) {
+          await this.processToken(data.token)
+
+          window.removeEventListener('message', reciveEvent, false)
+
+          window.location.reload()
+        }
+      }
+      window.addEventListener('message', reciveEvent, false)
+    },
+
     register(data: any): Promise<Object | void> {
       if (!registerUrl) {
         throw new Error('[nuxt-auth-jy] Option "registerUrl" is not set!')
@@ -32,6 +71,14 @@ const myPlugin: Plugin = (ctx, inject) => {
           })
       })
     },
+    oAuthLogin(name: string): void {
+      if (!oAuth) throw new Error('[nuxt-auth-jy] Option "oAuth" is not set!')
+      const tar = oAuth.find((el: any) => el.name === name)
+      if (!tar) throw new Error(`[nuxt-auth-jy] ${name} strategy is not set!`)
+      this.addReciveMessageListener()
+      window.location.href = `${tar.url}?redirect=${redirectUrl}?type=auto-close`
+    },
+
     login(data: any, remember: Boolean = false): Promise<unknown> {
       if (!loginUrl) {
         throw new Error('[nuxt-auth-jy] Option "loginUrl" is not set!')

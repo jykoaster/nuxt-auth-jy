@@ -3,29 +3,41 @@
 Set module in `nuxt.config.js`
 
 ```
- modules: [
-      '@nuxtjs/axios',
-      ['nuxt-auth-jy', { options... }],
-    ],
+modules: [
+  '@nuxtjs/axios',
+  ['nuxt-auth-jy', { options... }],
+],
 
 router: {
-      middleware: ['authCustom'],
-    },
+  middleware: ['authCustom'],
+},
 
 ```
 
 or
 
 ```
- modules: [
-      'nuxt-auth-jy' ,
-    ],
+modules: [
+  'nuxt-auth-jy' ,
+],
 authCustom:{
-    options...
-    }
+  options...
+}
 router: {
-      middleware: ['authCustom'],
-    },
+  middleware: ['authCustom'],
+},
+```
+
+## With Typescript
+
+```
+// tsconfig.json
+
+types:[
+  "nuxt-cart-jy"
+]
+
+
 ```
 
 # Usage
@@ -55,7 +67,12 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 ## `login(data:Object,remember:Boolean)`
 
 - Return:`Promise`
-- Description:Call `registerUrl` to login with `data` parameter as payload,then auto fetch userdata with `userUrl`.If `remember` is `true`,the value of key that you set in option `rememberProperty` will be saved from `data` parameter
+- Description:Call `loginUrl` to login with `data` parameter as payload,then auto fetch userdata with `userUrl`.If `remember` is `true`,the value of key that you set in option `rememberProperty` will be saved from `data` parameter
+
+## `oAuthLogin(name:String)`
+
+- Return:`Promise`
+- Decription: Login by thirdParty which set in option `oAuth` first then redirect to `redirectUrl`
 
 ## `isLogged()`
 
@@ -189,3 +206,18 @@ When you use with this package, it will auto inject `$authCustom` in your contex
 - Type:`String`
 - Default:`null`
 - Description:Reset password url
+
+## `oAuth`
+
+- Type:`Array<loginsStrategy>`
+- Default:`null`
+- Description:oAuth login config
+
+`loginStrategy`:
+
+```
+{
+  name: required<string>
+  url: required<string>
+}
+```

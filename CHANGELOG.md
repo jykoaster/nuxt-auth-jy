@@ -1,3 +1,7 @@
+### 1.1.0
+
+- third party login
+
 ### 1.0.3
 
 - add option `guestPath`

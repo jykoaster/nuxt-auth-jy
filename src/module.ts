@@ -1,5 +1,8 @@
 import { Module } from '@nuxt/types'
-
+interface loginsStrategy {
+  name: string
+  url: string
+}
 interface Options {
   tokenProperty: String
   tokenType: String
@@ -17,6 +20,8 @@ interface Options {
   userUrl?: String
   userDataProperty?: String
   editUrl?: String
+  oAuth?: Array<loginsStrategy>
+  redirectUrl?: String
 }
 
 const myModule: Module<Options> = function (moduleOptions) {
